@@ -231,6 +231,21 @@
             <label class="text-xs uppercase tracking-wider text-white/70" for="guideStoryTitleInput">Story başlığı</label>
             <input id="guideStoryTitleInput" type="text" value="The Story" class="rounded-md border-0 bg-white/10 text-white" />
 
+            <label class="text-xs uppercase tracking-wider text-white/70" for="guideListenTextInput">Listen to Guide metni</label>
+            <textarea id="guideListenTextInput" rows="3" class="rounded-md border-0 bg-white/10 text-white">"This architectural marvel was commissioned by Pope Clement XII..."</textarea>
+
+            <label class="text-xs uppercase tracking-wider text-white/70" for="guideSeeingItem1Input">What You're Seeing - Madde 1</label>
+            <input id="guideSeeingItem1Input" type="text" value="The central figure of Oceanus standing on a shell-shaped chariot." class="rounded-md border-0 bg-white/10 text-white" />
+
+            <label class="text-xs uppercase tracking-wider text-white/70" for="guideSeeingItem2Input">What You're Seeing - Madde 2</label>
+            <input id="guideSeeingItem2Input" type="text" value="The two Tritons leading the winged horses, representing the moods of the sea." class="rounded-md border-0 bg-white/10 text-white" />
+
+            <label class="text-xs uppercase tracking-wider text-white/70" for="guideSeeingItem3Input">What You're Seeing - Madde 3</label>
+            <input id="guideSeeingItem3Input" type="text" value="The abundance of architectural details and statues set against the Palazzo Poli." class="rounded-md border-0 bg-white/10 text-white" />
+
+            <label class="text-xs uppercase tracking-wider text-white/70" for="guideStoryTextInput">Story metni</label>
+            <textarea id="guideStoryTextInput" rows="3" class="rounded-md border-0 bg-white/10 text-white">Built at the terminal point of the Aqua Virgo aqueduct, the Trevi Fountain is a theatrical display of water and stone.</textarea>
+
             <button id="guideExportBtn" class="rounded-lg bg-emerald-500 px-4 py-2 font-semibold text-black hover:bg-emerald-400 transition-colors">
               Son Oluşan Görüntüyü Export Et
             </button>
@@ -252,21 +267,21 @@
                 <div class="audio-wave h-4 mb-4 opacity-60">
                   <div class="wave-bar h-2"></div><div class="wave-bar h-3"></div><div class="wave-bar h-4"></div><div class="wave-bar h-2"></div><div class="wave-bar h-1"></div><div class="wave-bar h-3"></div><div class="wave-bar h-4"></div><div class="wave-bar h-2"></div><div class="wave-bar h-3"></div><div class="wave-bar h-4"></div><div class="wave-bar h-1"></div><div class="wave-bar h-2"></div><div class="wave-bar h-4"></div><div class="wave-bar h-3"></div><div class="wave-bar h-2"></div><div class="wave-bar h-4"></div>
                 </div>
-                <blockquote class="italic text-slate-300 text-xs leading-relaxed border-l-2 border-slate-500 pl-4">"This architectural marvel was commissioned by Pope Clement XII..."</blockquote>
+                <blockquote id="guideListenText" class="italic text-slate-300 text-xs leading-relaxed border-l-2 border-slate-500 pl-4">"This architectural marvel was commissioned by Pope Clement XII..."</blockquote>
               </section>
 
               <section class="glass-card rounded-2xl p-6">
                 <h2 id="guideSeeingTitle" class="text-xs font-bold tracking-[0.2em] text-slate-400 uppercase mb-4">What You're Seeing</h2>
                 <ul class="space-y-4 text-sm">
-                  <li class="text-slate-200">• The central figure of Oceanus standing on a shell-shaped chariot.</li>
-                  <li class="text-slate-200">• The two Tritons leading the winged horses, representing the moods of the sea.</li>
-                  <li class="text-slate-200">• The abundance of architectural details and statues set against the Palazzo Poli.</li>
+                  <li id="guideSeeingItem1" class="text-slate-200">• The central figure of Oceanus standing on a shell-shaped chariot.</li>
+                  <li id="guideSeeingItem2" class="text-slate-200">• The two Tritons leading the winged horses, representing the moods of the sea.</li>
+                  <li id="guideSeeingItem3" class="text-slate-200">• The abundance of architectural details and statues set against the Palazzo Poli.</li>
                 </ul>
               </section>
 
               <article class="glass-card rounded-2xl p-6 mb-6">
                 <h2 id="guideStoryTitle" class="text-xs font-bold tracking-[0.2em] text-slate-400 uppercase mb-4">The Story</h2>
-                <p class="text-slate-200 text-sm leading-relaxed">Built at the terminal point of the Aqua Virgo aqueduct, the Trevi Fountain is a theatrical display of water and stone.</p>
+                <p id="guideStoryText" class="text-slate-200 text-sm leading-relaxed">Built at the terminal point of the Aqua Virgo aqueduct, the Trevi Fountain is a theatrical display of water and stone.</p>
               </article>
             </main>
           </div>
@@ -293,9 +308,19 @@
       const guideMainTitleInput = document.getElementById('guideMainTitleInput');
       const guideSeeingTitleInput = document.getElementById('guideSeeingTitleInput');
       const guideStoryTitleInput = document.getElementById('guideStoryTitleInput');
+      const guideListenTextInput = document.getElementById('guideListenTextInput');
+      const guideSeeingItem1Input = document.getElementById('guideSeeingItem1Input');
+      const guideSeeingItem2Input = document.getElementById('guideSeeingItem2Input');
+      const guideSeeingItem3Input = document.getElementById('guideSeeingItem3Input');
+      const guideStoryTextInput = document.getElementById('guideStoryTextInput');
       const guideMainTitle = document.getElementById('guideMainTitle');
       const guideSeeingTitle = document.getElementById('guideSeeingTitle');
       const guideStoryTitle = document.getElementById('guideStoryTitle');
+      const guideListenText = document.getElementById('guideListenText');
+      const guideSeeingItem1 = document.getElementById('guideSeeingItem1');
+      const guideSeeingItem2 = document.getElementById('guideSeeingItem2');
+      const guideSeeingItem3 = document.getElementById('guideSeeingItem3');
+      const guideStoryText = document.getElementById('guideStoryText');
       const guideExportBtn = document.getElementById('guideExportBtn');
       const guideCaptureScene = document.getElementById('guideCaptureScene');
       const guideStatus = document.getElementById('guideStatus');
@@ -356,6 +381,22 @@
 
       guideStoryTitleInput.addEventListener('input', () => {
         guideStoryTitle.textContent = guideStoryTitleInput.value.trim() || 'The Story';
+      });
+
+      guideListenTextInput.addEventListener('input', () => {
+        guideListenText.textContent = guideListenTextInput.value.trim() || '"Guide metni"';
+      });
+
+      const updateSeeingItem = (inputElement, outputElement) => {
+        outputElement.textContent = `• ${inputElement.value.trim() || 'Madde açıklaması'}`;
+      };
+
+      guideSeeingItem1Input.addEventListener('input', () => updateSeeingItem(guideSeeingItem1Input, guideSeeingItem1));
+      guideSeeingItem2Input.addEventListener('input', () => updateSeeingItem(guideSeeingItem2Input, guideSeeingItem2));
+      guideSeeingItem3Input.addEventListener('input', () => updateSeeingItem(guideSeeingItem3Input, guideSeeingItem3));
+
+      guideStoryTextInput.addEventListener('input', () => {
+        guideStoryText.textContent = guideStoryTextInput.value.trim() || 'Story metni';
       });
 
       exportBtn.addEventListener('click', async () => {
