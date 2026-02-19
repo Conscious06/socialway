@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Travel App - Exportable Camera Viewfinder</title>
+    <title>Travel App - Exportable Views</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
     <style>
@@ -13,7 +13,7 @@
         margin: 0;
         background-color: #000;
         font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica,
-          Arial, "Apple Color Emoji", "Segoe UI Emoji";
+          Arial, 'Apple Color Emoji', 'Segoe UI Emoji';
       }
 
       .app {
@@ -101,87 +101,185 @@
       .text-shadow-sm {
         text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
       }
+
+      .hidden-panel {
+        display: none;
+      }
+
+      .guide-shell {
+        background-color: #0f172a;
+        color: #e2e8f0;
+      }
+
+      .guide-title {
+        font-family: 'Playfair Display', serif;
+      }
+
+      .hero-gradient {
+        background: linear-gradient(to bottom, rgba(15, 23, 42, 0) 0%, rgba(15, 23, 42, 0.8) 70%, rgba(15, 23, 42, 1) 100%);
+      }
+
+      .glass-card {
+        background: rgba(30, 41, 59, 0.7);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .audio-wave {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+      }
+
+      .wave-bar {
+        width: 3px;
+        background: #94a3b8;
+        border-radius: 1px;
+      }
+
+      @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;500;600&display=swap');
     </style>
   </head>
 
   <body>
     <div class="app">
       <section class="phone-frame space-y-4">
-        <div class="grid gap-2 rounded-xl bg-neutral-900/80 p-3 text-white">
-          <label class="text-xs uppercase tracking-wider text-white/70" for="bgFile">
-            Arka plan resmi yükle
-          </label>
-          <input id="bgFile" type="file" accept="image/*" class="text-sm" />
-
-          <label class="text-xs uppercase tracking-wider text-white/70" for="locationInput">
-            Lokasyon yazısı
-          </label>
-          <input id="locationInput" type="text" value="Colosseum" class="rounded-md border-0 bg-white/10 text-white" />
-
-          <button id="exportBtn" class="rounded-lg bg-emerald-500 px-4 py-2 font-semibold text-black hover:bg-emerald-400 transition-colors">
-            Görseli PNG Olarak Export Et
-          </button>
-          <p id="status" class="text-xs text-white/70"></p>
+        <div class="grid grid-cols-2 rounded-xl bg-neutral-900/80 p-1 text-white">
+          <button id="tabCamera" class="rounded-lg bg-white/20 px-3 py-2 text-sm font-semibold">Kamera Export</button>
+          <button id="tabGuide" class="rounded-lg px-3 py-2 text-sm font-semibold text-white/80">Hero Guide Export</button>
         </div>
 
-        <div id="captureScene" class="preview relative flex flex-col items-center justify-between text-white">
-          <div class="bg-layer z-0">
-            <img
-              id="backgroundImage"
-              alt="Colosseum Viewfinder"
-              src="https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=1200&q=80"
-              crossorigin="anonymous"
-            />
-            <div class="absolute inset-0 bg-black/30"></div>
+        <div id="cameraPanel" class="space-y-4">
+          <div class="grid gap-2 rounded-xl bg-neutral-900/80 p-3 text-white">
+            <label class="text-xs uppercase tracking-wider text-white/70" for="bgFile">Arka plan resmi yükle</label>
+            <input id="bgFile" type="file" accept="image/*" class="text-sm" />
+
+            <label class="text-xs uppercase tracking-wider text-white/70" for="locationInput">Lokasyon yazısı</label>
+            <input id="locationInput" type="text" value="Colosseum" class="rounded-md border-0 bg-white/10 text-white" />
+
+            <button id="exportBtn" class="rounded-lg bg-emerald-500 px-4 py-2 font-semibold text-black hover:bg-emerald-400 transition-colors">
+              Görseli PNG Olarak Export Et
+            </button>
+            <p id="status" class="text-xs text-white/70"></p>
           </div>
 
-          <header class="relative z-10 w-full p-6 flex justify-start items-center">
-            <button aria-label="Go back" class="p-2 bg-black/20 rounded-full backdrop-blur-sm">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M15.75 19.5L8.25 12l7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
-              </svg>
-            </button>
-          </header>
-
-          <main class="relative z-10 flex-grow w-full flex flex-col items-center justify-center pointer-events-none">
-            <div class="bracket bracket-tl"></div>
-            <div class="bracket bracket-tr"></div>
-            <div class="bracket bracket-bl"></div>
-            <div class="bracket bracket-br"></div>
-            <div class="focus-circle"></div>
-          </main>
-
-          <footer class="relative z-10 w-full pb-12 flex flex-col items-center gap-6 px-4">
-            <div id="locationPill" class="glass-pill px-6 py-2 rounded-full border border-white/20 text-lg font-medium tracking-wide">
-              Colosseum
+          <div id="captureScene" class="preview relative flex flex-col items-center justify-between text-white">
+            <div class="bg-layer z-0">
+              <img
+                id="backgroundImage"
+                alt="Colosseum Viewfinder"
+                src="https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=1200&q=80"
+                crossorigin="anonymous"
+              />
+              <div class="absolute inset-0 bg-black/30"></div>
             </div>
 
-            <div class="text-center space-y-1">
-              <p class="text-xs text-white/80 uppercase tracking-widest text-shadow-sm">Free plan: 6 scans left today.</p>
-              <p class="text-base font-light text-shadow-sm italic">Try capturing the full facade</p>
-            </div>
-
-            <div class="flex flex-col items-center gap-3">
-              <button class="relative flex items-center justify-center w-20 h-20 rounded-full border-2 border-white bg-transparent">
-                <div class="w-16 h-16 rounded-full border-2 border-white/40 flex items-center justify-center">
-                  <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"></path>
-                    <path
-                      clip-rule="evenodd"
-                      d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 0 1 0-1.113ZM17.25 12a5.25 5.25 0 1 1-10.5 0 5.25 5.25 0 0 1 10.5 0Z"
-                      fill-rule="evenodd"
-                    ></path>
-                  </svg>
-                </div>
+            <header class="relative z-10 w-full p-6 flex justify-start items-center">
+              <button aria-label="Go back" class="p-2 bg-black/20 rounded-full backdrop-blur-sm">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M15.75 19.5L8.25 12l7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
               </button>
-              <span class="text-sm font-semibold tracking-wide text-shadow-sm">Tap to perceive</span>
-            </div>
-          </footer>
+            </header>
+
+            <main class="relative z-10 flex-grow w-full flex flex-col items-center justify-center pointer-events-none">
+              <div class="bracket bracket-tl"></div>
+              <div class="bracket bracket-tr"></div>
+              <div class="bracket bracket-bl"></div>
+              <div class="bracket bracket-br"></div>
+              <div class="focus-circle"></div>
+            </main>
+
+            <footer class="relative z-10 w-full pb-12 flex flex-col items-center gap-6 px-4">
+              <div id="locationPill" class="glass-pill px-6 py-2 rounded-full border border-white/20 text-lg font-medium tracking-wide">Colosseum</div>
+
+              <div class="text-center space-y-1">
+                <p class="text-xs text-white/80 uppercase tracking-widest text-shadow-sm">Free plan: 6 scans left today.</p>
+                <p class="text-base font-light text-shadow-sm italic">Try capturing the full facade</p>
+              </div>
+
+              <div class="flex flex-col items-center gap-3">
+                <button class="relative flex items-center justify-center w-20 h-20 rounded-full border-2 border-white bg-transparent">
+                  <div class="w-16 h-16 rounded-full border-2 border-white/40 flex items-center justify-center">
+                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"></path>
+                      <path
+                        clip-rule="evenodd"
+                        d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 0 1 0-1.113ZM17.25 12a5.25 5.25 0 1 1-10.5 0 5.25 5.25 0 0 1 10.5 0Z"
+                        fill-rule="evenodd"
+                      ></path>
+                    </svg>
+                  </div>
+                </button>
+                <span class="text-sm font-semibold tracking-wide text-shadow-sm">Tap to perceive</span>
+              </div>
+            </footer>
+          </div>
+        </div>
+
+        <div id="guidePanel" class="space-y-4 hidden-panel">
+          <div class="grid gap-2 rounded-xl bg-neutral-900/80 p-3 text-white">
+            <label class="text-xs uppercase tracking-wider text-white/70" for="guideHeroFile">Hero görsel yükle</label>
+            <input id="guideHeroFile" type="file" accept="image/*" class="text-sm" />
+
+            <label class="text-xs uppercase tracking-wider text-white/70" for="guideMainTitleInput">Ana başlık</label>
+            <input id="guideMainTitleInput" type="text" value="Trevi Fountain" class="rounded-md border-0 bg-white/10 text-white" />
+
+            <label class="text-xs uppercase tracking-wider text-white/70" for="guideSeeingTitleInput">What You're Seeing başlığı</label>
+            <input id="guideSeeingTitleInput" type="text" value="What You're Seeing" class="rounded-md border-0 bg-white/10 text-white" />
+
+            <label class="text-xs uppercase tracking-wider text-white/70" for="guideStoryTitleInput">Story başlığı</label>
+            <input id="guideStoryTitleInput" type="text" value="The Story" class="rounded-md border-0 bg-white/10 text-white" />
+
+            <button id="guideExportBtn" class="rounded-lg bg-emerald-500 px-4 py-2 font-semibold text-black hover:bg-emerald-400 transition-colors">
+              Son Oluşan Görüntüyü Export Et
+            </button>
+            <p id="guideStatus" class="text-xs text-white/70"></p>
+          </div>
+
+          <div id="guideCaptureScene" class="preview guide-shell overflow-y-auto">
+            <section class="relative h-[48%] w-full overflow-hidden">
+              <img id="guideHeroImage" alt="Trevi Fountain" class="absolute inset-0 w-full h-full object-cover" crossorigin="anonymous" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8uUuF3QrGFlpBZf3D2Z-UbxDxbJwmkO_eRR8nNC50HpgB7eg7WuIpWxbVWJkVsF5oGvpZ3Y42wcxJMDv9ajy42N_wOMnQxmxt1Nvlnzo47YW3zpwEZrzgzj2pbISAo3-dFLeNdMkIA2uzZQf8iWW4Bs4e947lQn_c5u1lSPQFC_u2K3g10IIfRYzotj2_wx7GnF5mXXrAhJCN4cHMTMb_udDwK1IfuMRyKfHnPg1TGGZwzenEMY4gY7Em1AnIzZOAetBKOJxgjXDw" />
+              <div class="hero-gradient absolute inset-0 flex flex-col justify-end p-6 pb-8">
+                <h1 id="guideMainTitle" class="guide-title text-4xl font-bold text-white mb-3">Trevi Fountain</h1>
+                <p class="text-sm text-slate-300 leading-relaxed">Nicola Salvi, 1762. A masterpiece of Baroque architecture and one of the most famous fountains in the world.</p>
+              </div>
+            </section>
+
+            <main class="px-4 -mt-4 relative z-10 pb-12 space-y-4">
+              <section class="glass-card rounded-2xl p-5 shadow-2xl">
+                <h3 class="text-lg font-semibold text-white mb-3">Listen to Guide</h3>
+                <div class="audio-wave h-4 mb-4 opacity-60">
+                  <div class="wave-bar h-2"></div><div class="wave-bar h-3"></div><div class="wave-bar h-4"></div><div class="wave-bar h-2"></div><div class="wave-bar h-1"></div><div class="wave-bar h-3"></div><div class="wave-bar h-4"></div><div class="wave-bar h-2"></div><div class="wave-bar h-3"></div><div class="wave-bar h-4"></div><div class="wave-bar h-1"></div><div class="wave-bar h-2"></div><div class="wave-bar h-4"></div><div class="wave-bar h-3"></div><div class="wave-bar h-2"></div><div class="wave-bar h-4"></div>
+                </div>
+                <blockquote class="italic text-slate-300 text-xs leading-relaxed border-l-2 border-slate-500 pl-4">"This architectural marvel was commissioned by Pope Clement XII..."</blockquote>
+              </section>
+
+              <section class="glass-card rounded-2xl p-6">
+                <h2 id="guideSeeingTitle" class="text-xs font-bold tracking-[0.2em] text-slate-400 uppercase mb-4">What You're Seeing</h2>
+                <ul class="space-y-4 text-sm">
+                  <li class="text-slate-200">• The central figure of Oceanus standing on a shell-shaped chariot.</li>
+                  <li class="text-slate-200">• The two Tritons leading the winged horses, representing the moods of the sea.</li>
+                  <li class="text-slate-200">• The abundance of architectural details and statues set against the Palazzo Poli.</li>
+                </ul>
+              </section>
+
+              <article class="glass-card rounded-2xl p-6 mb-6">
+                <h2 id="guideStoryTitle" class="text-xs font-bold tracking-[0.2em] text-slate-400 uppercase mb-4">The Story</h2>
+                <p class="text-slate-200 text-sm leading-relaxed">Built at the terminal point of the Aqua Virgo aqueduct, the Trevi Fountain is a theatrical display of water and stone.</p>
+              </article>
+            </main>
+          </div>
         </div>
       </section>
     </div>
 
     <script>
+      const tabCamera = document.getElementById('tabCamera');
+      const tabGuide = document.getElementById('tabGuide');
+      const cameraPanel = document.getElementById('cameraPanel');
+      const guidePanel = document.getElementById('guidePanel');
+
       const bgFileInput = document.getElementById('bgFile');
       const backgroundImage = document.getElementById('backgroundImage');
       const exportBtn = document.getElementById('exportBtn');
@@ -189,6 +287,32 @@
       const statusLabel = document.getElementById('status');
       const locationInput = document.getElementById('locationInput');
       const locationPill = document.getElementById('locationPill');
+
+      const guideHeroFile = document.getElementById('guideHeroFile');
+      const guideHeroImage = document.getElementById('guideHeroImage');
+      const guideMainTitleInput = document.getElementById('guideMainTitleInput');
+      const guideSeeingTitleInput = document.getElementById('guideSeeingTitleInput');
+      const guideStoryTitleInput = document.getElementById('guideStoryTitleInput');
+      const guideMainTitle = document.getElementById('guideMainTitle');
+      const guideSeeingTitle = document.getElementById('guideSeeingTitle');
+      const guideStoryTitle = document.getElementById('guideStoryTitle');
+      const guideExportBtn = document.getElementById('guideExportBtn');
+      const guideCaptureScene = document.getElementById('guideCaptureScene');
+      const guideStatus = document.getElementById('guideStatus');
+
+      const switchTab = (target) => {
+        const showCamera = target === 'camera';
+        cameraPanel.classList.toggle('hidden-panel', !showCamera);
+        guidePanel.classList.toggle('hidden-panel', showCamera);
+
+        tabCamera.classList.toggle('bg-white/20', showCamera);
+        tabCamera.classList.toggle('text-white/80', !showCamera);
+        tabGuide.classList.toggle('bg-white/20', !showCamera);
+        tabGuide.classList.toggle('text-white/80', showCamera);
+      };
+
+      tabCamera.addEventListener('click', () => switchTab('camera'));
+      tabGuide.addEventListener('click', () => switchTab('guide'));
 
       bgFileInput.addEventListener('change', (event) => {
         const file = event.target.files?.[0];
@@ -206,6 +330,32 @@
 
       locationInput.addEventListener('input', () => {
         locationPill.textContent = locationInput.value.trim() || 'Konum';
+      });
+
+      guideHeroFile.addEventListener('change', (event) => {
+        const file = event.target.files?.[0];
+        if (!file) {
+          return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = () => {
+          guideHeroImage.src = String(reader.result);
+          guideStatus.textContent = `Hero görsel güncellendi: ${file.name}`;
+        };
+        reader.readAsDataURL(file);
+      });
+
+      guideMainTitleInput.addEventListener('input', () => {
+        guideMainTitle.textContent = guideMainTitleInput.value.trim() || 'Başlık';
+      });
+
+      guideSeeingTitleInput.addEventListener('input', () => {
+        guideSeeingTitle.textContent = guideSeeingTitleInput.value.trim() || "What You're Seeing";
+      });
+
+      guideStoryTitleInput.addEventListener('input', () => {
+        guideStoryTitle.textContent = guideStoryTitleInput.value.trim() || 'The Story';
       });
 
       exportBtn.addEventListener('click', async () => {
@@ -229,6 +379,37 @@
           statusLabel.textContent = 'Export başarısız oldu. Konsolu kontrol edin.';
         }
       });
+
+      guideExportBtn.addEventListener('click', async () => {
+        guideStatus.textContent = 'Son görüntü export ediliyor...';
+        try {
+          const canvas = await html2canvas(guideCaptureScene, {
+            useCORS: true,
+            scale: 2,
+            backgroundColor: '#0f172a'
+          });
+
+          const link = document.createElement('a');
+          const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+          link.download = `hero-guide-${timestamp}.png`;
+          link.href = canvas.toDataURL('image/png');
+          link.click();
+
+          guideStatus.textContent = 'Hero guide PNG export başarıyla indirildi.';
+        } catch (error) {
+          console.error(error);
+          guideStatus.textContent = 'Export başarısız oldu. Konsolu kontrol edin.';
+        }
+      });
+
+      const bars = document.querySelectorAll('.wave-bar');
+      function animateWaves() {
+        bars.forEach((bar) => {
+          const height = Math.floor(Math.random() * 16) + 4;
+          bar.style.height = `${height}px`;
+        });
+      }
+      setInterval(animateWaves, 200);
     </script>
   </body>
 </html>
