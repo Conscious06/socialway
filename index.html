@@ -225,6 +225,9 @@
             <label class="text-xs uppercase tracking-wider text-white/70" for="guideMainTitleInput">Ana başlık</label>
             <input id="guideMainTitleInput" type="text" value="Trevi Fountain" class="rounded-md border-0 bg-white/10 text-white" />
 
+            <label class="text-xs uppercase tracking-wider text-white/70" for="guideSubtitleInput">Alt başlık</label>
+            <textarea id="guideSubtitleInput" rows="2" class="rounded-md border-0 bg-white/10 text-white">Nicola Salvi, 1762. A masterpiece of Baroque architecture and one of the most famous fountains in the world.</textarea>
+
             <label class="text-xs uppercase tracking-wider text-white/70" for="guideSeeingTitleInput">What You're Seeing başlığı</label>
             <input id="guideSeeingTitleInput" type="text" value="What You're Seeing" class="rounded-md border-0 bg-white/10 text-white" />
 
@@ -257,7 +260,7 @@
               <img id="guideHeroImage" alt="Trevi Fountain" class="absolute inset-0 w-full h-full object-cover" crossorigin="anonymous" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8uUuF3QrGFlpBZf3D2Z-UbxDxbJwmkO_eRR8nNC50HpgB7eg7WuIpWxbVWJkVsF5oGvpZ3Y42wcxJMDv9ajy42N_wOMnQxmxt1Nvlnzo47YW3zpwEZrzgzj2pbISAo3-dFLeNdMkIA2uzZQf8iWW4Bs4e947lQn_c5u1lSPQFC_u2K3g10IIfRYzotj2_wx7GnF5mXXrAhJCN4cHMTMb_udDwK1IfuMRyKfHnPg1TGGZwzenEMY4gY7Em1AnIzZOAetBKOJxgjXDw" />
               <div class="hero-gradient absolute inset-0 flex flex-col justify-end p-6 pb-8">
                 <h1 id="guideMainTitle" class="guide-title text-4xl font-bold text-white mb-3">Trevi Fountain</h1>
-                <p class="text-sm text-slate-300 leading-relaxed">Nicola Salvi, 1762. A masterpiece of Baroque architecture and one of the most famous fountains in the world.</p>
+                <p id="guideSubtitle" class="text-sm text-slate-300 leading-relaxed">Nicola Salvi, 1762. A masterpiece of Baroque architecture and one of the most famous fountains in the world.</p>
               </div>
             </section>
 
@@ -306,6 +309,7 @@
       const guideHeroFile = document.getElementById('guideHeroFile');
       const guideHeroImage = document.getElementById('guideHeroImage');
       const guideMainTitleInput = document.getElementById('guideMainTitleInput');
+      const guideSubtitleInput = document.getElementById('guideSubtitleInput');
       const guideSeeingTitleInput = document.getElementById('guideSeeingTitleInput');
       const guideStoryTitleInput = document.getElementById('guideStoryTitleInput');
       const guideListenTextInput = document.getElementById('guideListenTextInput');
@@ -314,6 +318,7 @@
       const guideSeeingItem3Input = document.getElementById('guideSeeingItem3Input');
       const guideStoryTextInput = document.getElementById('guideStoryTextInput');
       const guideMainTitle = document.getElementById('guideMainTitle');
+      const guideSubtitle = document.getElementById('guideSubtitle');
       const guideSeeingTitle = document.getElementById('guideSeeingTitle');
       const guideStoryTitle = document.getElementById('guideStoryTitle');
       const guideListenText = document.getElementById('guideListenText');
@@ -373,6 +378,10 @@
 
       guideMainTitleInput.addEventListener('input', () => {
         guideMainTitle.textContent = guideMainTitleInput.value.trim() || 'Başlık';
+      });
+
+      guideSubtitleInput.addEventListener('input', () => {
+        guideSubtitle.textContent = guideSubtitleInput.value.trim() || 'Alt başlık';
       });
 
       guideSeeingTitleInput.addEventListener('input', () => {
